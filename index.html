@@ -355,6 +355,16 @@ html { scroll-padding-top: 76px; }
 .form input[type="date"]::-webkit-calendar-picker-indicator { opacity: .75; cursor: pointer; margin-inline-start: 0; }
 @media (hover: none) { .alcove:hover, .opt:hover .ph { transform: none; } }
 
+/* ===== HEADING ANIMATION — one motion for every section heading (round 6) =====
+   kicker fades up → words rise out of a mask, 70ms apart → subtitle fades up. Calm easing, nothing bounces. */
+.tx .w { display: inline-block; overflow: hidden; vertical-align: bottom; padding: .06em .02em .16em; margin: -.06em -.02em -.16em; }
+.tx .wi { display: inline-block; transform: translateY(110%); opacity: 0; transition: transform .9s cubic-bezier(.19, 1, .22, 1), opacity .6s ease; transition-delay: calc(140ms + var(--i, 0) * 70ms); }
+.tx .tx-k, .tx .tx-l { opacity: 0; transform: translateY(14px); transition: opacity .8s ease, transform .9s cubic-bezier(.19, 1, .22, 1); }
+.tx .tx-l { transition-delay: calc(260ms + var(--n, 3) * 70ms); }
+.tx.tx-in .wi { transform: none; opacity: 1; }
+.tx.tx-in .tx-k, .tx.tx-in .tx-l { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .tx .wi, .tx .tx-k, .tx .tx-l { transform: none !important; opacity: 1 !important; transition: none !important; } }
+
 /* ===== ROUND 5 (all widths) ===== */
 /* one CTA look: a soft gradient of the brand coral */
 .btn-coral, .mbar-main, .alcove .wa-link { background: linear-gradient(135deg, #FF7A86 0%, var(--coral) 48%, var(--coral-2) 100%); color: #fff; }
@@ -1141,7 +1151,49 @@ html { scroll-padding-top: 76px; }
 
   // reveal (content is visible at rest; only below-the-fold elements get a lift)
   const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.remove('pre'); io.unobserve(e.target); } }), { threshold: .12 });
-  document.querySelectorAll('.reveal').forEach((el, i) => { if (reduce || el.getBoundingClientRect().top < innerHeight) return; el.classList.add('pre'); el.style.transitionDelay = (i % 4) * 90 + 'ms'; io.observe(el); });
+  // (heading groups get their own word animation below, so they skip the generic lift)
+  document.querySelectorAll('.reveal').forEach((el, i) => { if (reduce || el.getBoundingClientRect().top < innerHeight || el.querySelector('.h2')) return; el.classList.add('pre'); el.style.transitionDelay = (i % 4) * 90 + 'ms'; io.observe(el); });
+
+  // ONE heading animation for the whole page (round 6): the kicker fades up, then every word of the
+  // heading rises out of its own mask one after another, then the subtitle fades up. Replays when the
+  // heading re-enters from below; never hides content that is already on screen at load.
+  if (!reduce) {
+    const splitWords = (node, list) => [...node.childNodes].forEach(n => {
+      if (n.nodeType === 3) {
+        const frag = document.createDocumentFragment();
+        n.textContent.split(/(\s+)/).forEach(part => {
+          if (!part) return;
+          if (/^\s+$/.test(part)) { frag.append(' '); return; }
+          const w = document.createElement('span'), wi = document.createElement('span');
+          w.className = 'w'; wi.className = 'wi'; wi.textContent = part; w.append(wi); frag.append(w); list.push(wi);
+        });
+        n.replaceWith(frag);
+      } else if (n.nodeType === 1) splitWords(n, list);
+    });
+    const heads = document.querySelectorAll('.h2');
+    // measured from the heading itself (its group may be display: contents on mobile, which has no box):
+    // plays once its top passes 88% of the screen height, resets only after it has left below the screen
+    const headList = [];
+    const headsFrame = () => headList.forEach(h => {
+      const top = h.getBoundingClientRect().top, g = h.parentElement;
+      if (top < innerHeight * .88) g.classList.add('tx-in');
+      else if (top > innerHeight) g.classList.remove('tx-in');
+    });
+    let hTick = false;
+    addEventListener('scroll', () => { if (hTick) return; hTick = true; requestAnimationFrame(() => { headsFrame(); hTick = false; }); }, { passive: true });
+    const hio = { observe: h => headList.push(h) };
+    heads.forEach(h => {
+      const words = []; splitWords(h, words);
+      words.forEach((wi, i) => wi.style.setProperty('--i', i));
+      const group = h.parentElement;
+      group.classList.add('tx');
+      group.style.setProperty('--n', words.length);
+      group.querySelectorAll(':scope > .kicker').forEach(k => k.classList.add('tx-k'));
+      group.querySelectorAll(':scope > .lead, :scope > .role').forEach(l => l.classList.add('tx-l'));
+      hio.observe(h);
+    });
+    headsFrame();
+  }
 
   // per-item scroll animations (round 5): every feature icon and its text, and every journey station, animate
   // each time they enter the screen (icon pops, title then line slide in, staggered)
