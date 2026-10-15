@@ -355,6 +355,40 @@ html { scroll-padding-top: 76px; }
 .form input[type="date"]::-webkit-calendar-picker-indicator { opacity: .75; cursor: pointer; margin-inline-start: 0; }
 @media (hover: none) { .alcove:hover, .opt:hover .ph { transform: none; } }
 
+/* ===== ROUND 5 (all widths) ===== */
+/* one CTA look: a soft gradient of the brand coral */
+.btn-coral, .mbar-main, .alcove .wa-link { background: linear-gradient(135deg, #FF7A86 0%, var(--coral) 48%, var(--coral-2) 100%); color: #fff; }
+.btn-coral:hover { background: linear-gradient(135deg, #FF6B79 0%, var(--coral-2) 60%, #C9223A 100%); }
+/* service card CTA: one line, brand pill */
+.alcove .wa-link { display: inline-flex; align-items: center; justify-content: center; gap: .5em; min-height: 44px; padding: 0 1.2em; border: 0; border-radius: 999px; white-space: nowrap; font-size: 14px; box-shadow: 0 8px 20px rgba(255, 77, 94, .35); }
+/* quiz result: text only, compact, right-aligned */
+.result { grid-template-columns: 1fr auto; text-align: start; justify-items: start; }
+.result .kicker { font-size: 22px; }
+.result h3 { font-size: clamp(24px, 2.2vw, 36px); }
+.result p { font-size: 15px; line-height: 1.6; }
+/* kit features: icon pops, title and text slide in, one by one */
+.js .anim .ic, .js .anim .dot { transition: transform .7s cubic-bezier(.2, 1.4, .4, 1) var(--d, 0ms), opacity .5s ease var(--d, 0ms); }
+.js .anim h3, .js .anim p { transition: transform .7s cubic-bezier(.2, .7, .2, 1), opacity .6s ease; }
+.js .anim h3 { transition-delay: calc(var(--d, 0ms) + 120ms); }
+.js .anim p { transition-delay: calc(var(--d, 0ms) + 220ms); }
+.js .anim:not(.in) .ic, .js .anim:not(.in) .dot { transform: scale(.3) rotate(-35deg); opacity: 0; }
+.js .anim:not(.in) h3, .js .anim:not(.in) p { transform: translateX(-34px); opacity: 0; }
+/* journey: brand colours, small refined icons, a clearly moving line with a glowing tip */
+.step h3 { color: var(--coral-2); }
+.step .dot { width: 52px; height: 52px; border-color: rgba(255, 77, 94, .3); background: #fff; color: var(--coral); }
+.step .dot svg { width: 22px; height: 22px; }
+.step .num { width: 22px; height: 22px; font-size: 11px; line-height: 22px; top: -4px; inset-inline-end: -4px; }
+.step.lit .dot { background: var(--coral); color: #fff; border-color: var(--coral); box-shadow: 0 0 0 6px rgba(255, 77, 94, .18), 0 10px 24px rgba(255, 77, 94, .35); }
+.step.lit .num { background: var(--ink); }
+.step .dot svg { color: var(--coral); transition: color .3s; }
+.step.lit .dot svg { color: #fff; }
+.steps .tip { display: none; }
+/* about: the greeting reads bright and bold */
+.portrait .hi { color: #fff; font-weight: 950; text-shadow: 0 2px 0 rgba(224, 50, 74, .18), 0 12px 34px rgba(var(--ink-rgb), .28); -webkit-text-stroke: .012em #fff; }
+/* footer: small logo, small CTA on the right */
+.footer .big { font-size: clamp(40px, 4.4vw, 76px); margin-bottom: var(--gap); }
+.footer .big .sub { font-size: 10px; letter-spacing: .42em; }
+.f-top .btn { min-height: 42px; padding: 0 1.3em; font-size: 14px; align-self: flex-start; }
 /* ===== MOBILE (≤700px) — phone-first redesign: Styliner mobile rules + her inspirations ===== */
 @media (max-width: 700px) {
   /* Styliner mobile = fixed px: one 20px margin & inner frame, 12px inside groups, 32px between groups, 72px between sections */
@@ -573,6 +607,48 @@ html { scroll-padding-top: 76px; }
   .mbar-tel { flex: 0 0 52px; height: 52px; border-radius: 50%; display: grid; place-items: center; border: 1.5px solid rgba(247, 241, 236, .5); color: var(--porcelain); }
   .mbar-tel svg { width: 24px; height: 24px; }
   .a11y { width: 52px; height: 52px; inset-inline-end: var(--gutter); bottom: calc(16px + env(safe-area-inset-bottom)); }
+  /* ===== ROUND 5 (mobile) ===== */
+  /* header: burger right · logo centred & smaller · small gradient CTA on the left */
+  .header .wrap { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; gap: 6px; }
+  .burger { order: 0; justify-self: start; }
+  .logo { justify-self: center; align-items: center; margin: 0; }
+  .logo .script { font-size: 21px; }
+  .m-hide { display: none; }
+  .logo .sub { font-size: 7px; letter-spacing: .32em; padding-inline-start: .32em; }
+  .header > .wrap > .btn { justify-self: end; min-height: 34px; padding: 0 .75em; font-size: 11px; letter-spacing: 0; box-shadow: 0 6px 16px rgba(255, 77, 94, .35); }
+  /* floating bar: centred between the screen edges, gradient pill + green WhatsApp logo */
+  .mbar { inset-inline: auto; left: 50%; width: calc(100% - 2 * (var(--gutter) + 50px)); max-width: 320px; padding: 5px; gap: 6px; align-items: center; transform: translate(-50%, 160%); }
+  .mbar.on { transform: translate(-50%, 0); }
+  .mbar-main { min-height: 46px; font-size: 13.5px; letter-spacing: .02em; gap: .45em; box-shadow: 0 6px 16px rgba(255, 77, 94, .35); }
+  .mbar-wa { flex: 0 0 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; background: #fff; box-shadow: 0 4px 12px rgba(0, 0, 0, .25); }
+  .mbar-wa svg { width: 30px; height: 30px; }
+  .mbar-wa:active { transform: scale(.94); }
+  .a11y { width: 40px; height: 40px; bottom: calc(20px + env(safe-area-inset-bottom)); }
+  .a11y svg { width: 20px; height: 20px; }
+  /* kit: heading and lead centred, lead smaller */
+  .kit .kicker, .kit .h2, .kit .lead { text-align: center; }
+  .kit .lead { font-size: 14.5px; max-width: 26em; margin-inline: auto; }
+  /* journey: a thick moving line with a glowing tip */
+  .steps { grid-template-columns: 1fr; }
+  .step { grid-template-columns: 52px 1fr; }
+  .step .dot { width: 52px; height: 52px; }
+  .step .dot svg { width: 22px; height: 22px; }
+  .steps::before, .steps .bar { top: 26px; bottom: 26px; width: 3px; inset-inline-start: 24.5px; border-radius: 3px; }
+  .steps .bar { background: linear-gradient(var(--coral), var(--coral-2)); }
+  .steps .tip { display: block; position: absolute; z-index: 2; inset-inline-start: 19px; top: calc(26px + var(--prog, 0) * (100% - 52px)); width: 14px; height: 14px; margin-top: -7px; border-radius: 50%; background: var(--coral); box-shadow: 0 0 0 6px rgba(255, 77, 94, .22), 0 0 18px rgba(255, 77, 94, .8); pointer-events: none; }
+  /* quiz result */
+  .result { grid-template-columns: 1fr; text-align: start; justify-items: start; padding: var(--pad); border-radius: 20px; width: calc(100% - 2 * var(--pad)); margin-inline: auto; }
+  .result .kicker { font-size: 19px; }
+  .result h3 { font-size: 22px; letter-spacing: .02em; }
+  .result p { font-size: 14px; margin-top: .4em; }
+  .result .btn { width: auto; min-height: 42px; padding: 0 1.1em; font-size: 13px; margin-top: 4px; }
+  .result .btn .arrow { width: 24px; height: 24px; }
+  /* services CTA fits on one line */
+  .alcove .wa-link { display: inline-flex; width: auto; font-size: 13px; padding: 0 1.1em; margin-top: var(--gap-in); }
+  /* footer */
+  .footer .big { font-size: 34px; }
+  .footer .big .sub { font-size: 9px; }
+  .f-top .btn { width: auto; min-height: 40px; font-size: 13px; padding: 0 1.2em; }
 }
 @media (max-width: 380px) {
   .footer .big { font-size: 13.5vw; }
@@ -609,11 +685,13 @@ html { scroll-padding-top: 76px; }
     <symbol id="s-clock" viewBox="0 0 24 24"><g fill="currentColor"><path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" opacity=".5"/><path fill-rule="evenodd" d="M12 7.25C12.4142 7.25 12.75 7.58579 12.75 8V11.6893L15.0303 13.9697C15.3232 14.2626 15.3232 14.7374 15.0303 15.0303C14.7374 15.3232 14.2626 15.3232 13.9697 15.0303L11.4697 12.5303C11.329 12.3897 11.25 12.1989 11.25 12V8C11.25 7.58579 11.5858 7.25 12 7.25Z" clip-rule="evenodd"/></g></symbol>
     <symbol id="s-magic" viewBox="0 0 24 24"><path fill="currentColor" d="M3.845 3.845a2.883 2.883 0 0 0 0 4.077L5.432 9.51c.012-.014.555.503.568.49l4-4c.013-.013-.504-.556-.49-.568L7.922 3.845a2.883 2.883 0 0 0-4.077 0m1.288 11.462a.483.483 0 0 1 .9 0l.157.4a.48.48 0 0 0 .272.273l.398.157a.486.486 0 0 1 0 .903l-.398.158a.48.48 0 0 0-.272.273l-.157.4a.483.483 0 0 1-.9 0l-.157-.4a.48.48 0 0 0-.272-.273l-.398-.158a.486.486 0 0 1 0-.903l.398-.157a.48.48 0 0 0 .272-.274z" opacity=".5"/><path fill="currentColor" d="M19.967 9.13a.483.483 0 0 1 .9 0l.156.399c.05.125.148.224.273.273l.398.158a.486.486 0 0 1 0 .902l-.398.158a.5.5 0 0 0-.273.273l-.156.4a.483.483 0 0 1-.9 0l-.157-.4a.5.5 0 0 0-.272-.273l-.398-.158a.486.486 0 0 1 0-.902l.398-.158a.5.5 0 0 0 .272-.273z" opacity=".3"/><path fill="currentColor" d="M16.1 2.307a.483.483 0 0 1 .9 0l.43 1.095a.48.48 0 0 0 .272.274l1.091.432a.486.486 0 0 1 0 .903l-1.09.432a.5.5 0 0 0-.273.273L17 6.81a.483.483 0 0 1-.9 0l-.43-1.095a.5.5 0 0 0-.273-.273l-1.09-.432a.486.486 0 0 1 0-.903l1.09-.432a.5.5 0 0 0 .273-.274z" opacity=".7"/><path fill="currentColor" d="M10.568 6.49c-.012.014-.555-.503-.568-.49l-4 4c-.013.013.504.556.49.568l9.588 9.587a2.883 2.883 0 1 0 4.078-4.077z"/></symbol>
     <symbol id="s-bag" viewBox="0 0 24 24"><g fill="currentColor"><path d="M4.0828 10.8943C4.52171 8.55339 4.74117 7.38295 5.57434 6.69147C6.40752 6 7.59835 6 9.98003 6H14.0209C16.4026 6 17.5934 6 18.4266 6.69147C19.2598 7.38295 19.4792 8.55339 19.9181 10.8943L20.6681 14.8943C21.2853 18.186 21.5939 19.8318 20.6942 20.9159C19.7945 22 18.12 22 14.7709 22H9.23003C5.88097 22 4.20644 22 3.30672 20.9159C2.40701 19.8318 2.7156 18.186 3.3328 14.8943L4.0828 10.8943Z" opacity=".5"/><path d="M12 12.1914C13.3498 10.899 14.9997 11.5234 15 13.1963C15 14.1807 13.835 15.221 12.957 15.8652C12.5373 16.1732 12.3275 16.3271 12 16.3271C11.6725 16.3271 11.4627 16.1732 11.043 15.8652C10.165 15.221 9 14.1807 9 13.1963C9.00029 11.5234 10.6502 10.899 12 12.1914Z"/><path d="M12 1.25C14.0711 1.25 15.75 2.92893 15.75 5V6.01465C15.312 6.00151 14.816 6.00018 14.25 6V5C14.25 3.75736 13.2426 2.75 12 2.75C10.7574 2.75 9.75 3.75736 9.75 5V6C9.18397 6.00018 8.68799 6.00149 8.25 6.01465V5C8.25 2.92893 9.92893 1.25 12 1.25Z"/></g></symbol>
-    <!-- Streamline Plump Color icons by Streamline, CC BY 4.0 (https://www.streamlinehq.com/icons/plump-color · Figma community), recolored to the brand palette -->
-    <symbol id="p-chat" viewBox="0 0 48 48"><g fill="none" stroke-width="3"><path fill="#FFD3D6" d="M45 24c0-11.598-9.402-21-21-21S3 12.402 3 24c0 3.802 1.01 7.367 2.777 10.443c-.91 2.377-1.768 5.137-2.331 7.896a1.797 1.797 0 0 0 2.197 2.12c2.643-.626 5.325-1.494 7.681-2.371A20.9 20.9 0 0 0 24 45c11.598 0 21-9.402 21-21"/><path stroke="#E0324A" stroke-linecap="round" stroke-linejoin="round" d="M16 30c3.5 5.333 12.5 5.333 16 0M17 17v2m14-2v2"/><path stroke="#E0324A" stroke-linejoin="round" d="M45 24c0-11.598-9.402-21-21-21S3 12.402 3 24c0 3.802 1.01 7.367 2.777 10.443c-.91 2.377-1.768 5.137-2.331 7.896a1.797 1.797 0 0 0 2.197 2.12c2.643-.626 5.325-1.494 7.681-2.371A20.9 20.9 0 0 0 24 45c11.598 0 21-9.402 21-21Z"/></g></symbol>
-    <symbol id="p-lipstick" viewBox="0 0 48 48"><g fill="none" stroke-width="3"><path fill="#FFD3D6" d="M36.928 26.377a273 273 0 0 1-4.985 4.845L18.555 17.837a365 365 0 0 1 4.872-4.96c4.695-4.696 7.943-7.728 9.844-9.447c1.15-1.04 2.893-.97 3.854.246c2.79 3.532 5.829 9.004 6.28 13.903c.097 1.064-.267 2.095-.955 2.913c-.915 1.089-2.587 2.95-5.522 5.885"/><path fill="#fff" d="M30.514 19.29c-4.05-4.05-7.088-6.413-7.088-6.413L18.5 18l13 13l5.427-4.622s-2.363-3.038-6.413-7.088"/><path fill="#FFD3D6" d="M15.07 17.625c.985-.808 2.358-.765 3.32.07c1.417 1.229 3.76 3.358 7.062 6.66c3.301 3.3 5.43 5.645 6.66 7.06c.835.963.877 2.336.07 3.321c-.985 1.2-2.596 3.036-5.042 5.482a89 89 0 0 1-3.865 3.66c-1.907 1.69-4.64 1.614-6.525-.1a161 161 0 0 1-5.474-5.248a161 161 0 0 1-5.247-5.474c-1.715-1.886-1.79-4.618-.1-6.524a89 89 0 0 1 3.66-3.866c2.446-2.446 4.28-4.057 5.481-5.041"/><path stroke="#E0324A" stroke-linecap="round" stroke-linejoin="round" d="M15.07 17.625c.985-.808 2.358-.765 3.32.07c1.417 1.229 3.76 3.358 7.062 6.66c3.301 3.3 5.43 5.645 6.66 7.06c.835.963.877 2.336.07 3.321c-.985 1.2-2.596 3.036-5.042 5.482a89 89 0 0 1-3.865 3.66c-1.907 1.69-4.64 1.614-6.525-.1a161 161 0 0 1-5.474-5.248a161 161 0 0 1-5.247-5.474c-1.715-1.886-1.79-4.618-.1-6.524a89 89 0 0 1 3.66-3.866c2.446-2.446 4.28-4.057 5.481-5.041"/><path stroke="#E0324A" stroke-linecap="round" stroke-linejoin="round" d="M31.942 31.222a273 273 0 0 0 4.985-4.845c2.935-2.934 4.607-4.796 5.522-5.885c.688-.818 1.052-1.849.954-2.913c-.45-4.9-3.488-10.37-6.279-13.903c-.96-1.216-2.705-1.286-3.854-.246c-1.901 1.72-5.149 4.751-9.844 9.446a365 365 0 0 0-4.872 4.961m2.894 20.064a103 103 0 0 0 4.679-4.771"/><path stroke="#E0324A" stroke-linecap="round" stroke-linejoin="round" d="M23.427 12.878s3.038 2.362 7.088 6.413c4.05 4.05 6.413 7.088 6.413 7.088"/></g></symbol>
-    <symbol id="p-home" viewBox="0 0 48 48"><g fill="none" stroke-width="3"><path fill="#FFD3D6" d="M42 21c0 12.919-13.35 22.128-17.056 24.436a1.77 1.77 0 0 1-1.888 0C19.351 43.128 6 33.919 6 21c0-9.941 8.059-18 18-18s18 8.059 18 18"/><path fill="#fff" d="M32.942 23.822a7.2 7.2 0 0 0 .873-5.38c-.911-4.163-5.957-5.864-9.1-3.074c-.249.22-.47.473-.715.725c-.245-.252-.466-.506-.715-.725c-3.143-2.79-8.189-1.089-9.1 3.074a7.2 7.2 0 0 0 .873 5.38c1.592 2.58 4.09 4.63 6.597 6.48a3.96 3.96 0 0 0 4.69 0c2.508-1.85 5.005-3.9 6.597-6.48"/><path stroke="#E0324A" stroke-linecap="round" stroke-linejoin="round" d="M42 21c0 12.919-13.35 22.128-17.056 24.436a1.77 1.77 0 0 1-1.888 0C19.351 43.128 6 33.919 6 21c0-9.941 8.059-18 18-18s18 8.059 18 18"/><path stroke="#E0324A" stroke-linecap="round" stroke-linejoin="round" d="M32.942 23.822a7.2 7.2 0 0 0 .873-5.38c-.911-4.163-5.957-5.864-9.1-3.074c-.249.22-.47.473-.715.725c-.245-.252-.466-.506-.715-.725c-3.143-2.79-8.189-1.089-9.1 3.074a7.2 7.2 0 0 0 .873 5.38c1.592 2.58 4.09 4.63 6.597 6.48a3.96 3.96 0 0 0 4.69 0c2.508-1.85 5.005-3.9 6.597-6.48"/></g></symbol>
-    <symbol id="p-diamond" viewBox="0 0 48 48"><g fill="none" stroke-width="3"><path fill="#FFD3D6" d="m44.88 18.016l-5.352-9.49A3 3 0 0 0 36.915 7h-25.83a3 3 0 0 0-2.612 1.526l-5.353 9.49a3 3 0 0 0 .491 3.595l18.975 18.975a2 2 0 0 0 2.828 0L44.39 21.61a3 3 0 0 0 .492-3.595Z"/><path stroke="#E0324A" stroke-linecap="round" stroke-linejoin="round" d="m44.88 18.016l-5.352-9.49A3 3 0 0 0 36.915 7h-25.83a3 3 0 0 0-2.612 1.526l-5.353 9.49a3 3 0 0 0 .491 3.595l18.975 18.975a2 2 0 0 0 2.828 0L44.39 21.61a3 3 0 0 0 .492-3.595Z"/><path stroke="#E0324A" stroke-linecap="round" stroke-linejoin="round" d="m18.773 7l-2.956 11.74a4 4 0 0 0 .167 2.466l8.008 19.966h.017"/><path stroke="#E0324A" stroke-linecap="round" stroke-linejoin="round" d="m29.227 7l2.955 11.74a4 4 0 0 1-.166 2.466l-8.008 19.966M3 20h42"/></g></symbol>
+    <!-- Streamline Ultimate (line) icons by Streamline, CC BY 4.0 (streamlinehq.com · Figma community) -->
+    <symbol id="u-chat" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"><path d="M.75 12a11.25 11.25 0 1 0 22.5 0a11.25 11.25 0 0 0-22.5 0m9-2.25h4.5m-4.5 3h4.5"/><path d="M18 11.25C18 8.351 15.313 6 12 6s-6 2.351-6 5.25a5.31 5.31 0 0 0 3.75 4.868v2.632l3.15-2.309A5.53 5.53 0 0 0 18 11.25"/></g></symbol>
+    <symbol id="u-lipstick" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"><path d="m8.53 11.112l5.806 5.807a.5.5 0 0 1 0 .708l-5.088 5.089a1 1 0 0 1-1.417 0l-5.098-5.1a1 1 0 0 1 0-1.416l5.088-5.088a.5.5 0 0 1 .708 0"/><path d="m13.594 7.495l4.357 4.357a.5.5 0 0 1 0 .708l-3.987 3.987l-5.065-5.065l3.987-3.987a.5.5 0 0 1 .708 0"/><path d="m21.26 7.803l-3.68 3.68l-3.617-3.618l6.724-6.724a.512.512 0 0 1 .874.361v5.58c-.002.27-.11.53-.3.72"/></g></symbol>
+    <symbol id="u-sun" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5.25 12a6.75 6.75 0 1 0 13.5 0a6.75 6.75 0 0 0-13.5 0M12 2.25V.75m6.894 4.356l1.061-1.061M21.75 12h1.5m-4.356 6.894l1.061 1.061M12 21.75v1.5m-6.894-4.356l-1.061 1.061M2.25 12H.75m4.356-6.894L4.045 4.045"/></symbol>
+    <symbol id="u-diamond" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m12 23.242l6-6v-10.5l-6-6l-6 6v10.5zm0-22.5v22.5m-6-16.5h12m-12 10.5h12m3-5.25h2.25m-3-8.25l1.5-1.5m-1.5 18l1.5 1.5M3 11.992H.75m3-8.25l-1.5-1.5m1.5 18l-1.5 1.5"/></symbol>
+    <!-- WhatsApp logo (logos set by Gil Barbara, CC0) -->
+    <symbol id="wa-logo" viewBox="0 0 256 258"><defs><linearGradient id="SVGK3KZq49U" x1="50%" x2="50%" y1="100%" y2="0%"><stop offset="0%" stop-color="#1faf38"/><stop offset="100%" stop-color="#60d669"/></linearGradient><linearGradient id="SVGefMkoEOd" x1="50%" x2="50%" y1="100%" y2="0%"><stop offset="0%" stop-color="#f9f9f9"/><stop offset="100%" stop-color="#fff"/></linearGradient></defs><path fill="url(#SVGK3KZq49U)" d="M5.463 127.456c-.006 21.677 5.658 42.843 16.428 61.499L4.433 252.697l65.232-17.104a123 123 0 0 0 58.8 14.97h.054c67.815 0 123.018-55.183 123.047-123.01c.013-32.867-12.775-63.773-36.009-87.025c-23.23-23.25-54.125-36.061-87.043-36.076c-67.823 0-123.022 55.18-123.05 123.004"/><path fill="url(#SVGefMkoEOd)" d="M1.07 127.416c-.007 22.457 5.86 44.38 17.014 63.704L0 257.147l67.571-17.717c18.618 10.151 39.58 15.503 60.91 15.511h.055c70.248 0 127.434-57.168 127.464-127.423c.012-34.048-13.236-66.065-37.3-90.15C194.633 13.286 162.633.014 128.536 0C58.276 0 1.099 57.16 1.071 127.416m40.24 60.376l-2.523-4.005c-10.606-16.864-16.204-36.352-16.196-56.363C22.614 69.029 70.138 21.52 128.576 21.52c28.3.012 54.896 11.044 74.9 31.06c20.003 20.018 31.01 46.628 31.003 74.93c-.026 58.395-47.551 105.91-105.943 105.91h-.042c-19.013-.01-37.66-5.116-53.922-14.765l-3.87-2.295l-40.098 10.513z"/><path fill="#fff" d="M96.678 74.148c-2.386-5.303-4.897-5.41-7.166-5.503c-1.858-.08-3.982-.074-6.104-.074c-2.124 0-5.575.799-8.492 3.984c-2.92 3.188-11.148 10.892-11.148 26.561s11.413 30.813 13.004 32.94c1.593 2.123 22.033 35.307 54.405 48.073c26.904 10.609 32.379 8.499 38.218 7.967c5.84-.53 18.844-7.702 21.497-15.139c2.655-7.436 2.655-13.81 1.859-15.142c-.796-1.327-2.92-2.124-6.105-3.716s-18.844-9.298-21.763-10.361c-2.92-1.062-5.043-1.592-7.167 1.597c-2.124 3.184-8.223 10.356-10.082 12.48c-1.857 2.129-3.716 2.394-6.9.801c-3.187-1.598-13.444-4.957-25.613-15.806c-9.468-8.442-15.86-18.867-17.718-22.056c-1.858-3.184-.199-4.91 1.398-6.497c1.431-1.427 3.186-3.719 4.78-5.578c1.588-1.86 2.118-3.187 3.18-5.311c1.063-2.126.531-3.986-.264-5.579c-.798-1.593-6.987-17.343-9.819-23.64"/></symbol>
     <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
     <symbol id="i-phone" viewBox="0 0 24 24"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"/></symbol>
     <symbol id="i-mail" viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></symbol>
@@ -647,7 +725,7 @@ html { scroll-padding-top: 76px; }
         <div class="sheet-legal"><a href="#">תקנון</a><a href="#">הצהרת נגישות</a><a href="#">פרטיות</a></div>
       </div>
     </nav>
-    <a class="btn btn-coral wa-cta" data-msg="היי מיכל! אשמח לבדוק תאריך פנוי 💄" href="#book">לבדיקת תאריך <span class="arrow"><svg class="ico" aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
+    <a class="btn btn-coral wa-cta" data-msg="היי מיכל! אשמח לבדוק תאריך פנוי 💄" href="#book"><span class="m-hide">ל</span>בדיקת תאריך <span class="arrow"><svg class="ico" aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
   </div>
 </header>
 
@@ -726,14 +804,14 @@ html { scroll-padding-top: 76px; }
         <p class="lead" style="margin-inline:auto">כל הפרטים נשלחים בוואטסאפ, בהתאמה אישית לתאריך ולמיקום.</p>
       </div>
       <div class="alcoves">
-        <article class="alcove reveal"><img src="img/bride-flower.jpg" alt="כלה עם אביזר פרחים בשיער" loading="lazy"><span class="pearl" aria-hidden="true"></span>
-          <div class="body"><h3>כלה</h3><div class="chips"><span>ניסיון איפור</span><span>ריסים</span><span>קיט טאצ׳־אפ</span></div><a class="wa-link wa-cta" data-msg="היי מיכל! אשמח לפרטים על איפור כלה 💍" href="#book">לפרטים בוואטסאפ ←</a></div></article>
-        <article class="alcove reveal"><video src="video/v-eye2.mp4" muted loop playsinline preload="metadata" aria-label="איפור ערב"></video><span class="pearl" aria-hidden="true"></span>
-          <div class="body"><h3>ערב ואירועים</h3><div class="chips"><span>אם הכלה</span><span>בת מצווה</span><span>חינה</span></div><a class="wa-link wa-cta" data-msg="היי מיכל! אשמח לפרטים על איפור ערב ✨" href="#book">לפרטים בוואטסאפ ←</a></div></article>
-        <article class="alcove reveal"><img src="img/bride-back.jpg" alt="תסרוקת כלה עם אביזרים" loading="lazy"><span class="pearl" aria-hidden="true"></span>
-          <div class="body"><h3>תסרוקות</h3><div class="chips"><span>אסוף</span><span>חצי אסוף</span><span>גלים</span></div><a class="wa-link wa-cta" data-msg="היי מיכל! אשמח לפרטים על תסרוקת 🤍" href="#book">לפרטים בוואטסאפ ←</a></div></article>
-        <article class="alcove reveal"><img src="img/artist.jpg" alt="מיכל מאפרת בסטודיו" loading="lazy"><span class="pearl" aria-hidden="true"></span>
-          <div class="body"><h3>קורסים</h3><p class="from">מחזור הבא: <b>ינואר</b></p><div class="chips"><span>איפור עצמי</span><span>קורס מקצועי</span></div><a class="wa-link wa-cta" data-msg="היי מיכל! אשמח לפרטים על הקורס הקרוב 🎓" href="#book">לפרטים בוואטסאפ ←</a></div></article>
+        <article class="alcove reveal"><img src="img/svc-bride.jpg" alt="כלה באיפור טבעי ותסרוקת גלים" loading="lazy"><span class="pearl" aria-hidden="true"></span>
+          <div class="body"><h3>כלה</h3><div class="chips"><span>ניסיון איפור</span><span>ריסים</span><span>קיט טאצ׳־אפ</span></div><a class="wa-link wa-cta" data-msg="היי מיכל! אשמח לפרטים על איפור כלה 💍" href="#book">לפרטים בוואטסאפ <span aria-hidden="true">←</span></a></div></article>
+        <article class="alcove reveal"><img src="img/svc-evening.jpg" alt="איפור ערב עם אייליינר ושפתיים בורדו" loading="lazy"><span class="pearl" aria-hidden="true"></span>
+          <div class="body"><h3>ערב ואירועים</h3><div class="chips"><span>אם הכלה</span><span>בת מצווה</span><span>חינה</span></div><a class="wa-link wa-cta" data-msg="היי מיכל! אשמח לפרטים על איפור ערב ✨" href="#book">לפרטים בוואטסאפ <span aria-hidden="true">←</span></a></div></article>
+        <article class="alcove reveal"><img src="img/svc-hair.jpg" alt="תסרוקת קלועה עם פרחים" loading="lazy"><span class="pearl" aria-hidden="true"></span>
+          <div class="body"><h3>תסרוקות</h3><div class="chips"><span>אסוף</span><span>חצי אסוף</span><span>גלים</span></div><a class="wa-link wa-cta" data-msg="היי מיכל! אשמח לפרטים על תסרוקת 🤍" href="#book">לפרטים בוואטסאפ <span aria-hidden="true">←</span></a></div></article>
+        <article class="alcove reveal"><img src="img/svc-course.jpg" alt="הדגמת איפור כלה בקורס" loading="lazy"><span class="pearl" aria-hidden="true"></span>
+          <div class="body"><h3>קורסים</h3><p class="from">מחזור הבא: <b>ינואר</b></p><div class="chips"><span>איפור עצמי</span><span>קורס מקצועי</span></div><a class="wa-link wa-cta" data-msg="היי מיכל! אשמח לפרטים על הקורס הקרוב 🎓" href="#book">לפרטים בוואטסאפ <span aria-hidden="true">←</span></a></div></article>
       </div>
       <div class="svc-prog" aria-hidden="true"><span class="hand-ico"><svg viewBox="0 0 24 24"><path d="M9 11V5.5a1.5 1.5 0 0 1 3 0V10m0-1.5a1.5 1.5 0 0 1 3 0V11m0-1a1.5 1.5 0 0 1 3 0v4.5a6.5 6.5 0 0 1-6.5 6.5h-.6a6 6 0 0 1-4.6-2.2L4.6 15.6a1.6 1.6 0 0 1 2.4-2.1L9 15.5"/></svg></span><span class="track-bar"><i></i></span><b class="count">1 / 4</b></div>
     </div>
@@ -774,11 +852,11 @@ html { scroll-padding-top: 76px; }
         <h2 class="h2" id="jr-title">איתך <b>עד החופה</b></h2>
       </div>
       <ol class="steps" id="steps">
-        <span class="bar" aria-hidden="true"></span>
-        <li class="step reveal"><div class="dot"><svg aria-hidden="true"><use href="#p-chat"/></svg><span class="num">1</span></div><h3>הודעה בוואטסאפ</h3><p>בודקות יחד שהתאריך פנוי.</p></li>
-        <li class="step reveal"><div class="dot"><svg aria-hidden="true"><use href="#p-lipstick"/></svg><span class="num">2</span></div><h3>ניסיון איפור</h3><p>בונות את הלוק שלך עד הפרט האחרון.</p></li>
-        <li class="step reveal"><div class="dot"><svg aria-hidden="true"><use href="#p-home"/></svg><span class="num">3</span></div><h3>בוקר החתונה</h3><p>מגיעה אלייך עם כל הציוד והרבה שקט.</p></li>
-        <li class="step reveal"><div class="dot"><svg aria-hidden="true"><use href="#p-diamond"/></svg><span class="num">4</span></div><h3>טאצ׳־אפ באולם</h3><p>רענון לפני החופה, ואת מוכנה.</p></li>
+        <span class="bar" aria-hidden="true"></span><span class="tip" aria-hidden="true"></span>
+        <li class="step reveal"><div class="dot"><svg aria-hidden="true"><use href="#u-chat"/></svg><span class="num">1</span></div><h3>הודעה בוואטסאפ</h3><p>בודקות יחד שהתאריך פנוי.</p></li>
+        <li class="step reveal"><div class="dot"><svg aria-hidden="true"><use href="#u-lipstick"/></svg><span class="num">2</span></div><h3>ניסיון איפור</h3><p>בונות את הלוק שלך עד הפרט האחרון.</p></li>
+        <li class="step reveal"><div class="dot"><svg aria-hidden="true"><use href="#u-sun"/></svg><span class="num">3</span></div><h3>בוקר החתונה</h3><p>מגיעה אלייך עם כל הציוד והרבה שקט.</p></li>
+        <li class="step reveal"><div class="dot"><svg aria-hidden="true"><use href="#u-diamond"/></svg><span class="num">4</span></div><h3>טאצ׳־אפ באולם</h3><p>רענון לפני החופה, ואת מוכנה.</p></li>
       </ol>
     </div>
   </section>
@@ -812,7 +890,6 @@ html { scroll-padding-top: 76px; }
         <button class="opt reveal" type="button" aria-pressed="false" data-look="Soft Romance" data-desc="סומק ורוד רך, עיניים בגווני שמפניה ותלתלים פתוחים עם אביזר פרחים. רומנטי ועדין."><div class="ph"><img src="img/bride-flower.jpg" alt="" loading="lazy"><span class="check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></div><span class="lbl">רומנטית ורכה</span></button>
       </div>
       <div class="result" id="result" hidden aria-live="polite">
-        <span class="pearl" aria-hidden="true"></span>
         <div><span class="kicker" style="margin:0">הלוק שלך:</span><h3 id="r-look"></h3><p id="r-desc"></p></div>
         <a class="btn btn-coral" id="r-cta" href="#book">לשלוח למיכל בוואטסאפ <span class="arrow"><svg class="ico" aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
       </div>
@@ -883,8 +960,8 @@ html { scroll-padding-top: 76px; }
 
 <a class="wa wa-cta" data-msg="היי מיכל! אשמח לבדוק תאריך פנוי 💄" href="#book" aria-label="שיחה בוואטסאפ"><svg width="32" height="32" style="color:#fff" aria-hidden="true"><use href="#i-wa"/></svg></a>
 <div class="mbar" aria-label="פעולות מהירות">
-  <a class="mbar-main wa-cta" data-msg="היי מיכל! אשמח לבדוק תאריך פנוי 💍" href="#book"><svg class="ico" aria-hidden="true"><use href="#i-wa"/></svg>לבדיקת תאריך בוואטסאפ ←</a>
-  <a class="mbar-tel" href="tel:+972500000000" aria-label="שיחה למיכל"><svg aria-hidden="true"><use href="#s-phone"/></svg></a>
+  <a class="mbar-main" href="#book">לבדיקת תאריך פנוי <span aria-hidden="true">←</span></a>
+  <a class="mbar-wa wa-cta" data-msg="היי מיכל! אשמח לבדוק תאריך פנוי 💍" href="#book" aria-label="שיחה עם מיכל בוואטסאפ"><svg aria-hidden="true"><use href="#wa-logo"/></svg></a>
 </div>
 <button class="a11y" aria-label="תפריט נגישות"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="4" r="2"/><path d="M19 8.5 14 9v12h-2v-6h0v6h-2V9L5 8.5V6.6l7 .9 7-.9z"/></svg></button>
 <canvas id="sparkle" aria-hidden="true"></canvas>
@@ -1066,6 +1143,12 @@ html { scroll-padding-top: 76px; }
   const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.remove('pre'); io.unobserve(e.target); } }), { threshold: .12 });
   document.querySelectorAll('.reveal').forEach((el, i) => { if (reduce || el.getBoundingClientRect().top < innerHeight) return; el.classList.add('pre'); el.style.transitionDelay = (i % 4) * 90 + 'ms'; io.observe(el); });
 
+  // per-item scroll animations (round 5): every feature icon and its text, and every journey station, animate
+  // each time they enter the screen (icon pops, title then line slide in, staggered)
+  if (!reduce) {
+    const pop = new IntersectionObserver(es => es.forEach(e => e.target.classList.toggle('in', e.isIntersecting)), { threshold: .45, rootMargin: '0px 0px -8% 0px' });
+    document.querySelectorAll('.feats li, .step').forEach((el, i) => { el.classList.add('anim'); el.style.setProperty('--d', (i % 4) * 120 + 'ms'); pop.observe(el); });
+  }
   // header + menu
   const header = document.querySelector('.header');
   const burger = document.querySelector('.burger'), nav = document.getElementById('nav');
@@ -1119,9 +1202,17 @@ html { scroll-padding-top: 76px; }
     const r = steps.getBoundingClientRect();
     const p = Math.min(1, Math.max(0, (innerHeight * .85 - r.top) / (innerHeight * (mob() ? .9 : .6))));
     steps.style.setProperty('--prog', p.toFixed(3));
+    // each station lights up (and its title animates in) the moment the moving line reaches it
+    const top = r.top, h = r.height;
+    stepEls.forEach(s => { const c = s.querySelector('.dot').getBoundingClientRect(), at = (c.top + c.height / 2 - top) / h; s.classList.toggle('lit', p >= at - .02 || p >= .999); });
   }
+  const stepEls = [...steps.querySelectorAll('.step')];
   const prog = el => { const r = el.getBoundingClientRect(), total = el.offsetHeight - innerHeight; return total > 0 ? Math.min(1, Math.max(0, -r.top / total)) : 0; };
   const clamp01 = x => Math.min(1, Math.max(0, x)), ease = x => x * x * (3 - 2 * x);
+  const easeIO = x => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+  // pinned stories read a SMOOTHED progress: it glides after the finger instead of jumping (round 5)
+  const smooth = new Map(), smoothP = el => { const target = prog(el), cur = smooth.has(el) ? smooth.get(el) : target; const next = reduce ? target : cur + (target - cur) * .12; smooth.set(el, Math.abs(target - next) < .0004 ? target : next); return smooth.get(el); };
+  const settled = el => !smooth.has(el) || Math.abs(smooth.get(el) - prog(el)) < .0004;
 
   // MOBILE reels: pinned; each frame zooms to full screen, holds, zooms back and hands over to the next
   const reels = document.getElementById('reels'), phones = [...reels.querySelectorAll('.phone')];
@@ -1129,9 +1220,10 @@ html { scroll-padding-top: 76px; }
   let activeReel = -1;
   function reelsFrame() {
     if (!mob()) { phones.forEach(ph => { ph.style.transform = ph.style.opacity = ph.style.padding = ph.style.borderRadius = ph.style.zIndex = ''; }); reHead.style.opacity = ''; return; }
-    const n = phones.length, seg = prog(reels) * n, i = Math.min(n - 1, Math.floor(seg)), t = seg - i;
-    const z = ease(clamp01((t - .08) / .3)) * (1 - ease(clamp01((t - .66) / .22)));
-    const slide = i + (i < n - 1 ? ease(clamp01((t - .88) / .12)) : 0);
+    const n = phones.length, seg = smoothP(reels) * n, i = Math.min(n - 1, Math.floor(seg)), t = seg - i;
+    // longer, overlapping phases: zoom in → short hold → zoom out WHILE the next frame slides in
+    const z = easeIO(clamp01((t - .04) / .32)) * (1 - easeIO(clamp01((t - .56) / .26)));
+    const slide = i + (i < n - 1 ? easeIO(clamp01((t - .66) / .34)) : 0);
     const ph0 = phones[0].offsetHeight, pw0 = phones[0].offsetWidth;
     const full = Math.max(innerWidth / pw0, innerHeight / ph0) * 1.02;
     const area = reels.querySelector('.phones').getBoundingClientRect(), dy = innerHeight / 2 - (area.top + area.height / 2);
@@ -1154,9 +1246,9 @@ html { scroll-padding-top: 76px; }
   const svc = document.getElementById('services'), alc = svc.querySelector('.alcoves'), svcProg = svc.querySelector('.svc-prog');
   function svcFrame() {
     if (!mob()) { alc.style.transform = ''; return; }
-    // every card stops dead-centre for a beat, then the next one glides in
-    const cards = [...alc.children], n = cards.length, f = clamp01((prog(svc) - .04) / .92) * (n - 1);
-    const k = Math.min(n - 2, Math.floor(f)), fr = f - k, g = k + ease(clamp01((fr - .2) / .6));
+    // one continuous, gentle glide through all the cards (round 5: no stops), smoothed
+    const cards = [...alc.children], n = cards.length, g = clamp01((smoothP(svc) - .03) / .94) * (n - 1);
+    const k = Math.min(n - 2, Math.floor(g));
     const centre = c => c.offsetLeft + c.offsetWidth / 2;                    // layout position, ignores the transform
     const a = centre(cards[k]), b = centre(cards[k + 1]), mid = alc.parentElement.clientWidth / 2 + alc.parentElement.offsetLeft - alc.offsetLeft;
     alc.style.transform = `translateX(${mid - (a + (b - a) * (g - k))}px)`;
@@ -1183,7 +1275,10 @@ html { scroll-padding-top: 76px; }
 
   let ticking = false;
   const frame = () => { heroFrame(); stepsFrame(); barFrame(); reelsFrame(); svcFrame(); };
-  addEventListener('scroll', () => { if (ticking) return; ticking = true; requestAnimationFrame(() => { frame(); ticking = false; }); }, { passive: true });
+  // keep rendering until the smoothed stories have caught up with the real scroll position
+  let gliding = false;
+  const glide = () => { reelsFrame(); svcFrame(); if (!settled(reels) || !settled(svc)) requestAnimationFrame(glide); else gliding = false; };
+  addEventListener('scroll', () => { if (!gliding) { gliding = true; requestAnimationFrame(glide); } if (ticking) return; ticking = true; requestAnimationFrame(() => { heroFrame(); stepsFrame(); barFrame(); ticking = false; }); }, { passive: true });
   addEventListener('resize', frame); frame();
 
   // play videos only while visible
