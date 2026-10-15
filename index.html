@@ -277,13 +277,21 @@ b, strong { font-weight: 700; }
 
 /* ===== footer with glitter video ===== */
 .footer { position: relative; overflow: hidden; background: var(--ink); color: rgba(247, 241, 236, .75); padding: 240px 0 0; font-size: 15px; }
-.footer video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .28; mix-blend-mode: screen; pointer-events: none; }
+.footer video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .2; mix-blend-mode: screen; pointer-events: none; }
 .footer .big { position: relative; font: 950 clamp(70px, 14vw, 260px)/.85 var(--display); color: var(--porcelain); letter-spacing: -.04em; margin-bottom: 60px; }
 .footer .big { direction: ltr; text-align: left; }
 .footer .big .script { display: block; font: 400 1.05em/1 var(--script); letter-spacing: 0; }
 .footer .big .sub { display: block; font: 300 .13em/1 var(--display); letter-spacing: .5em; color: var(--coral); margin-top: .5em; padding-inline-start: .6em; }
-.fcols { position: relative; display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 40px; }
-.footer h4 { margin: 0 0 1em; color: var(--porcelain); font-size: 16px; }
+.footer::before { content: ""; position: absolute; inset: 0; background: linear-gradient(rgba(27, 16, 22, .55), rgba(27, 16, 22, .85)); pointer-events: none; }
+.f-top { position: relative; display: flex; align-items: center; justify-content: space-between; gap: var(--gap); padding-bottom: var(--gap); margin-bottom: var(--gap); border-bottom: 1px solid rgba(247, 241, 236, .14); }
+.f-about { font: 300 clamp(18px, 1.4vw, 22px)/1.5 var(--display); color: var(--porcelain); }
+.fcols { position: relative; display: grid; grid-template-columns: 1fr 1fr 1.3fr; gap: var(--gap); }
+.footer h4 { margin: 0 0 .8em; color: var(--coral); font: 700 13px/1 var(--display); letter-spacing: .14em; }
+.f-contact a { display: flex; align-items: center; gap: 10px; }
+.f-contact a .ico { width: 18px; height: 18px; color: var(--coral); flex: none; }
+.f-contact .socials { margin-top: var(--gap-in); }
+.f-legal { position: relative; display: flex; flex-wrap: wrap; gap: 6px 24px; margin-top: var(--gap); padding-top: var(--gap-in); border-top: 1px solid rgba(247, 241, 236, .14); font-size: 13px; }
+.f-legal a { margin: 0; }
 .footer a { display: block; text-decoration: none; margin-bottom: .5em; }
 .footer a:hover { color: #fff; text-decoration: underline; }
 .socials { display: flex; gap: 10px; }
@@ -322,7 +330,20 @@ html { scroll-padding-top: 76px; }
 .row { align-items: flex-start; }
 .rows.paused .row { animation-play-state: paused; }
 .rows.js-rows .row { animation: none; will-change: transform; }
-.mbar, .sheet-foot, .dots, .swipe-hint, .svc-prog, .scrub { display: none; }
+.mbar, .sheet-foot, .dots, .swipe-hint, .svc-prog, .scrub, .sheet-kicker, .nav small, .nav .sheet-only { display: none; }
+
+/* ===== SPACING SYSTEM (Styliner: 4 consistent spacings) =====
+   --gutter = outer margin (logo, burger, CTA and every section edge align to it)
+   --pad    = inner frame: the same distance from text to the edge of every box / card
+   --gap-in = inside a group (kicker → heading → lead)      --gap = between groups      --section = between sections */
+:root { --pad: clamp(24px, 2.4vw, 44px); --gap-in: clamp(10px, .8vw, 14px); --gap: clamp(28px, 2.8vw, 52px); }
+.head { margin-bottom: var(--gap); }
+.head .lead, .kit .lead, .bbox .lead { margin-top: var(--gap-in) !important; }
+.bbox { padding: calc(var(--pad) * 1.5) var(--pad); }
+.result { padding: var(--pad); gap: var(--gap-in) var(--gap); }
+.alcove .body { padding: 0 var(--pad) var(--pad); }
+.bubble { padding: var(--gap-in) var(--pad); }
+.form { margin-top: var(--gap); }
 .step .dot svg { width: 42px; height: 42px; }
 /* quiz: the picked card takes focus, the others step back */
 .opt { transition: opacity .35s, transform .35s; }
@@ -336,13 +357,14 @@ html { scroll-padding-top: 76px; }
 
 /* ===== MOBILE (≤700px) — phone-first redesign: Styliner mobile rules + her inspirations ===== */
 @media (max-width: 700px) {
-  :root { --section: 64px; --mid: #765A63; }
-  body { font-size: 17px; }
-  .head { margin-bottom: 30px; }
+  /* Styliner mobile = fixed px: one 20px margin & inner frame, 12px inside groups, 32px between groups, 72px between sections */
+  :root { --gutter: 20px; --pad: 20px; --gap-in: 12px; --gap: 32px; --section: 72px; --mid: #765A63; }
+  body { font-size: 16px; }
+  .burger { margin-inline-start: -6px; }          /* the bars, not the tap box, sit on the margin */
   .h2 { font-size: clamp(36px, 10.5vw, 46px); }
 
   /* header: thick burger right, small CTA pill left (חב"ד עומרים / מאיר מטבחים) */
-  .announce { font-size: 12px; padding: 9px 12px; }
+  .announce { font-size: 12px; padding: 9px var(--gutter); }
   .header { top: 36px; }
   .header.top0 { top: 0; }
   .header .wrap { min-height: 62px; gap: 10px; }
@@ -357,16 +379,28 @@ html { scroll-padding-top: 76px; }
   .header .btn .arrow { display: none; }
   html.bar-on .header .btn { background: transparent; box-shadow: none; border: 1.5px solid rgba(247, 241, 236, .55); }
 
-  /* full-screen menu sheet */
-  .nav.open { position: fixed; inset: 0; z-index: -1; display: flex; flex-direction: column; justify-content: center; gap: 0; padding: 110px 28px calc(28px + env(safe-area-inset-bottom)); background: var(--ink); border-radius: 0; clip-path: circle(150% at calc(100% - 40px) 40px); animation: sheet .5s cubic-bezier(.2, .7, .2, 1); }
+  /* full-screen menu sheet (round 4: the header's backdrop-filter used to trap the fixed sheet inside the header).
+     Readable list: brand colours, the page's one family, 22px items on 56px rows, numbers in coral, aligned to the gutter */
+  html.menu-open .header { backdrop-filter: none; -webkit-backdrop-filter: none; background: var(--ink); top: 0; z-index: 40; }
+  .nav.open .sheet-foot a { border-bottom: 0; padding: 0; }
+  .nav.open { position: fixed; inset: 0; z-index: -1; display: flex; flex-direction: column; justify-content: flex-start; gap: 0; overflow-y: auto; padding: 96px var(--gutter) calc(var(--gutter) + env(safe-area-inset-bottom)); background: radial-gradient(120% 60% at 100% 0%, #3a2030 0%, var(--ink) 60%); border-radius: 0; clip-path: circle(150% at calc(100% - 40px) 40px); animation: sheet .5s cubic-bezier(.2, .7, .2, 1); }
   @keyframes sheet { from { clip-path: circle(0 at calc(100% - 40px) 40px); } }
-  .nav.open a { min-height: 60px; display: flex; align-items: center; padding: 0; font: 900 30px/1 var(--display); letter-spacing: .03em; border-bottom: 1px solid rgba(247, 241, 236, .1); opacity: 1; text-decoration: none; }
-  .nav.open .sheet-foot { display: grid; gap: 14px; margin-top: 30px; }
-  .nav.open .sheet-foot .btn { width: 100%; min-height: 56px; border: 0; font-size: 17px; }
-  .nav.open .sheet-foot .soc { display: flex; gap: 12px; }
-  .nav.open .sheet-foot .soc a { width: 48px; height: 48px; min-height: 0; border-radius: 50%; border: 1px solid rgba(247, 241, 236, .3); justify-content: center; }
-  .nav.open .sheet-foot .soc .ico { width: 22px; height: 22px; }
-  .nav.open .sheet-pearl { position: absolute; top: 120px; inset-inline-end: 24px; --d: 64px; }
+  .nav.open .sheet-kicker { display: block; margin-bottom: var(--gap-in); font: 400 24px/1 var(--hand); color: var(--coral); }
+  .nav.open > a { min-height: 56px; display: flex; align-items: center; gap: 14px; padding: 0; font: 700 22px/1.1 var(--display); letter-spacing: .03em; color: var(--porcelain); border-bottom: 1px solid rgba(247, 241, 236, .12); opacity: 1; text-decoration: none; }
+  .nav.open > a::after { content: "←"; margin-inline-start: auto; font-size: 18px; color: rgba(247, 241, 236, .4); }
+  .nav.open > a:active { color: var(--coral); }
+  .nav.open small { display: inline-block; min-width: 24px; font: 700 12px/1 var(--display); letter-spacing: .08em; color: var(--coral); }
+  .nav.open .sheet-only { display: flex; }
+  .nav.open .sheet-foot { display: grid; gap: var(--gap-in); margin-top: var(--gap); }
+  .nav.open .sheet-foot .btn { width: 100%; min-height: 54px; border: 0; font-size: 15px; }
+  .nav.open .sheet-contact { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .nav.open .sheet-tel { display: flex; align-items: center; gap: 10px; min-height: 44px; font: 700 17px/1 var(--display); letter-spacing: .04em; color: var(--porcelain); text-decoration: none; direction: ltr; }
+  .nav.open .sheet-tel .ico { width: 20px; height: 20px; color: var(--coral); }
+  .nav.open .sheet-foot .soc { display: flex; gap: 10px; }
+  .nav.open .sheet-foot .soc a { width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(247, 241, 236, .3); display: grid; place-items: center; color: var(--porcelain); }
+  .nav.open .sheet-foot .soc .ico { width: 20px; height: 20px; }
+  .nav.open .sheet-legal { display: flex; flex-wrap: wrap; gap: 4px 18px; padding-top: var(--gap-in); border-top: 1px solid rgba(247, 241, 236, .12); }
+  .nav.open .sheet-legal a { min-height: 36px; display: flex; align-items: center; font-size: 13px; color: rgba(247, 241, 236, .7); text-decoration: none; }
 
   /* hero sequence */
   .hero { height: 200svh; }
@@ -410,38 +444,38 @@ html { scroll-padding-top: 76px; }
   /* reels: the page pins here and scrolling steps INTO each frame, one by one (round 3b) */
   .reels { padding: 0; height: 430svh; overflow: visible; }
   .reels .stick { position: sticky; top: 0; height: 100svh; overflow: hidden; display: flex; flex-direction: column; justify-content: center; padding-top: 56px; }
-  .reels .head { margin-bottom: 16px; will-change: opacity; }
+  .reels .head { margin-bottom: var(--gap); will-change: opacity; }
   .phones { position: relative; display: block; height: min(64svh, 128vw); }
   .phone, .phone:nth-child(2) { position: absolute; top: 0; left: 50%; height: 100%; width: auto; margin-left: calc(min(64svh, 128vw) * -9 / 37); rotate: 0deg !important; translate: 0 0 !important; border-radius: 34px; padding: 8px; will-change: transform; transform-origin: 50% 50%; }
   .phone.reveal.pre { opacity: 1; }
   .screen { border-radius: 27px; }
   .ghost { font-size: 34vw; top: 9%; }
-  .scrub { display: flex; justify-content: center; gap: 6px; margin-top: 18px; }
+  .scrub { display: flex; justify-content: center; gap: 6px; margin-top: var(--gap-in); }
   .scrub i { width: 8px; height: 8px; border-radius: 99px; background: var(--ink); opacity: .2; transition: width .3s, opacity .3s, background .3s; }
   .scrub i.on { width: 24px; opacity: 1; background: var(--coral); }
 
   /* services: pinned, vertical scroll drives the cards sideways in order (round 3b) */
   .services { padding: 0; height: 360svh; overflow: visible; }
   .services .stick { position: sticky; top: 0; height: 100svh; overflow: hidden; display: flex; flex-direction: column; justify-content: center; padding-top: 52px; }
-  .services .head { margin-bottom: 18px; }
+  .services .head { margin-bottom: var(--gap); }
   .services .lead { font-size: 15px; }
   .alcoves { position: relative; display: flex; gap: 12px; width: max-content; grid-template-columns: none; will-change: transform; }
   .alcove { flex: 0 0 auto; width: min(66vw, 36svh); aspect-ratio: 3 / 4.3; translate: 0 0 !important; transform: none !important; }
-  .alcove .body { padding: 0 16px 18px; }
+  .alcove .body { padding: 0 var(--pad) var(--pad); }
   .alcove h3 { font-size: 24px; }
   .chips span { font-size: 11.5px; padding: 5px 10px; }
   .services .stick { padding-bottom: 84px; }
-  .svc-prog { display: flex; align-items: center; gap: 12px; margin-top: 18px; color: var(--porcelain); }
+  .svc-prog { display: flex; align-items: center; gap: var(--gap-in); margin-top: var(--gap-in); color: var(--porcelain); }
   .svc-prog .hand-ico { width: 34px; height: 34px; display: grid; place-items: center; animation: handUp 1.6s ease-in-out infinite; }
   .svc-prog .hand-ico svg { width: 26px; height: 26px; fill: none; stroke: var(--coral); stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
   @keyframes handUp { 50% { translate: 0 -6px; } }
   .svc-prog .track-bar { flex: 1; height: 3px; border-radius: 3px; background: rgba(247, 241, 236, .18); overflow: hidden; }
   .svc-prog .track-bar i { display: block; height: 100%; width: 100%; background: var(--coral); transform: scaleX(var(--sp, .25)); transform-origin: right; }
   .svc-prog .count { font: 700 14px/1 var(--display); letter-spacing: .06em; min-width: 3.2em; text-align: left; direction: ltr; unicode-bidi: isolate; }
-  .alcove .body { padding: 0 20px 22px; }
+  .alcove .body { padding: 0 var(--pad) var(--pad); }
   .alcove h3 { font-size: 28px; letter-spacing: .03em; }
   .chips span { font-size: 13px; padding: 6px 12px; }
-  .alcove .wa-link { display: flex; justify-content: center; align-items: center; min-height: 44px; margin-top: 14px; border: 1.5px solid rgba(247, 241, 236, .6); border-radius: 999px; padding: 0 1em; }
+  .alcove .wa-link { display: flex; justify-content: center; align-items: center; min-height: 44px; margin-top: var(--gap-in); border: 1.5px solid rgba(247, 241, 236, .6); border-radius: 999px; padding: 0 1em; }
 
   /* 3D kit: heading → stage (hint above) → features */
   .kit .wrap { display: flex; flex-direction: column; gap: 22px; }
@@ -449,22 +483,22 @@ html { scroll-padding-top: 76px; }
   .kit .kicker, .kit .h2, .kit .lead { order: 0; }
   #kit-title b { display: block; }
   .stage3d { order: 1; width: 100%; aspect-ratio: 1 / 1.08; margin: 40px 0 10px; }
-  .feats { order: 2; gap: 14px; margin-top: 0; }
+  .feats { order: 2; gap: var(--gap-in); margin-top: 0; }
   .spin-hint { top: -34px; bottom: auto; right: 50%; font-size: 23px; }
   .stage3d canvas { width: 60%; }
   .hots { width: 40%; gap: 10px; }
   .hot { font-size: 12.5px; padding: 8px 10px; gap: 8px; min-height: 44px; }
   .kit .h2 { font-size: 29px; line-height: 1.08; }
   .kit .lead { font-size: 16px; line-height: 1.6; }
-  .feats li { grid-template-columns: 44px 1fr; gap: 12px; }
+  .feats li { grid-template-columns: 44px 1fr; gap: var(--gap-in); }
   .feats .ic { width: 44px; height: 44px; }
   .feats .ic svg { width: 22px; height: 22px; }
   .feats h3 { font-size: 17px; letter-spacing: .03em; }
   .feats p { font-size: 16px; }
 
   /* journey: vertical timeline with scroll-drawn line */
-  .steps { grid-template-columns: 1fr; row-gap: 20px; }
-  .step { display: grid; grid-template-columns: 64px 1fr; column-gap: 16px; align-items: center; text-align: start; padding: 0; }
+  .steps { grid-template-columns: 1fr; row-gap: var(--pad); }
+  .step { display: grid; grid-template-columns: 64px 1fr; column-gap: var(--gap-in); align-items: center; text-align: start; padding: 0; }
   .step .dot { grid-row: span 2; width: 64px; height: 64px; margin: 0; }
   .step .dot svg { width: 36px; height: 36px; }
   .step .num { width: 26px; height: 26px; font-size: 13px; line-height: 26px; }
@@ -477,7 +511,7 @@ html { scroll-padding-top: 76px; }
   .rows { gap: 12px; }
   .row { gap: 12px; animation-duration: 48s; }
   .row.rev { animation-duration: 56s; }
-  .bubble { width: 78vw; max-width: 300px; font-size: 16px; padding: 14px 16px 10px; }
+  .bubble { width: 78vw; max-width: 300px; font-size: 15px; padding: var(--gap-in) var(--pad); }
   .bubble.img { width: 172px; }
   .bubble.img figcaption { font-size: 11.5px; }
 
@@ -488,7 +522,7 @@ html { scroll-padding-top: 76px; }
   .opt .ph { aspect-ratio: 4 / 5; border-radius: 22px; }
   .opt .check { width: 44px; height: 44px; top: 12px; inset-inline-start: 12px; }
   .opt .lbl { font-size: 20px; letter-spacing: .03em; margin-top: 12px; }
-  .result { margin-top: 18px; padding: 24px 20px; gap: 12px; border-radius: 24px; grid-template-columns: 1fr; text-align: center; justify-items: center; }
+  .result { margin-top: var(--gap-in); padding: var(--gap) var(--pad); gap: var(--gap-in); border-radius: 24px; grid-template-columns: 1fr; text-align: center; justify-items: center; }
   .result .pearl { --d: 56px; }
   .result .btn { width: 100%; }
 
@@ -505,34 +539,40 @@ html { scroll-padding-top: 76px; }
   .role { font-size: 19px; }
 
   /* booking: name + tel full width, date | type side by side */
-  .bbox { border-radius: 28px; padding: 34px 20px 26px; }
+  .bbox { border-radius: 28px; padding: var(--gap) var(--pad); }
   .form { grid-template-columns: 1fr; gap: 12px; }
-  .form input, .form select { min-height: 54px; padding: 0 1.2em; }
+  .form input, .form select { min-height: 54px; padding: 0 var(--pad); }
   .form input[type="date"] { min-height: 54px; line-height: 52px; }
   .form .field:nth-child(3) { margin-top: 6px; }
   .book { margin-bottom: -96px; }
   .footer { padding-top: 160px; }
 
-  /* footer */
-  .footer .big { font-size: 14.5vw; white-space: nowrap; margin-bottom: 36px; }
+  /* footer (round 4): one calm column → about + CTA, two short link lists side by side, contact rows, legal row */
+  .footer { font-size: 15px; color: rgba(247, 241, 236, .82); }
+  .footer .big { font-size: 14.5vw; white-space: nowrap; margin-bottom: var(--gap); }
   .footer .big .sub { font-size: 11px; letter-spacing: .42em; }
-  .fcols { grid-template-columns: 1fr 1fr; gap: 24px 16px; }
-  .fcols > div:first-child, .fcols > div:last-child { grid-column: 1 / -1; }
-  .fcols > div:last-child { display: flex; flex-wrap: wrap; column-gap: 18px; }
-  .fcols > div:last-child h4 { width: 100%; }
-  .footer a { display: flex; align-items: center; min-height: 44px; margin: 0; font-size: 16px; }
-  .credit { margin-top: 36px; padding-bottom: calc(16px + 80px + env(safe-area-inset-bottom)); }
+  .f-top { flex-direction: column; align-items: stretch; gap: var(--gap-in); }
+  .f-about { font-size: 17px; line-height: 1.55; }
+  .f-top .btn { width: 100%; min-height: 54px; font-size: 15px; }
+  .fcols { grid-template-columns: 1fr 1fr; gap: var(--gap) var(--pad); }
+  .fcols .f-contact { grid-column: 1 / -1; }
+  .footer a { display: flex; align-items: center; min-height: 44px; margin: 0; font-size: 15px; line-height: 1.3; }
+  .f-contact a { font-size: 16px; }
+  .f-contact a span { font-size: 14px; letter-spacing: .02em; overflow-wrap: anywhere; }
+  .f-legal { gap: 0 var(--pad); }
+  .f-legal a { font-size: 13px; min-height: 40px; }
+  .credit { margin-top: var(--gap); padding: var(--pad) var(--gutter) calc(var(--pad) + 80px + env(safe-area-inset-bottom)); line-height: 1.6; letter-spacing: .04em; }
 
   /* sticky bottom action bar replaces the floating WhatsApp (ממשק הזמנת מוצר) */
   .wa { display: none; }
-  .mbar { position: fixed; z-index: 50; display: flex; gap: 8px; padding: 6px; inset-inline: 12px 72px; bottom: calc(10px + env(safe-area-inset-bottom)); border-radius: 999px; background: rgba(27, 16, 22, .86); backdrop-filter: blur(14px); box-shadow: 0 12px 30px rgba(0, 0, 0, .35); transform: translateY(160%); transition: transform .35s cubic-bezier(.2, .7, .2, 1); }
+  .mbar { position: fixed; z-index: 50; display: flex; gap: 8px; padding: 6px; inset-inline: var(--gutter) calc(var(--gutter) + 60px); bottom: calc(10px + env(safe-area-inset-bottom)); border-radius: 999px; background: rgba(27, 16, 22, .86); backdrop-filter: blur(14px); box-shadow: 0 12px 30px rgba(0, 0, 0, .35); transform: translateY(160%); transition: transform .35s cubic-bezier(.2, .7, .2, 1); }
   .mbar.on { transform: none; }
   .mbar-main { flex: 1; min-height: 52px; display: flex; align-items: center; justify-content: center; gap: 8px; border-radius: 999px; background: var(--coral); color: #fff; font: 700 13px/1 var(--font); white-space: nowrap; text-decoration: none; }
   .mbar-main .ico { width: 20px; height: 20px; }
   .mbar-main:active, .mbar-tel:active, .btn:active { transform: scale(.97); }
   .mbar-tel { flex: 0 0 52px; height: 52px; border-radius: 50%; display: grid; place-items: center; border: 1.5px solid rgba(247, 241, 236, .5); color: var(--porcelain); }
   .mbar-tel svg { width: 24px; height: 24px; }
-  .a11y { width: 52px; height: 52px; inset-inline-end: 12px; bottom: calc(16px + env(safe-area-inset-bottom)); }
+  .a11y { width: 52px; height: 52px; inset-inline-end: var(--gutter); bottom: calc(16px + env(safe-area-inset-bottom)); }
 }
 @media (max-width: 380px) {
   .footer .big { font-size: 13.5vw; }
@@ -575,6 +615,8 @@ html { scroll-padding-top: 76px; }
     <symbol id="p-home" viewBox="0 0 48 48"><g fill="none" stroke-width="3"><path fill="#FFD3D6" d="M42 21c0 12.919-13.35 22.128-17.056 24.436a1.77 1.77 0 0 1-1.888 0C19.351 43.128 6 33.919 6 21c0-9.941 8.059-18 18-18s18 8.059 18 18"/><path fill="#fff" d="M32.942 23.822a7.2 7.2 0 0 0 .873-5.38c-.911-4.163-5.957-5.864-9.1-3.074c-.249.22-.47.473-.715.725c-.245-.252-.466-.506-.715-.725c-3.143-2.79-8.189-1.089-9.1 3.074a7.2 7.2 0 0 0 .873 5.38c1.592 2.58 4.09 4.63 6.597 6.48a3.96 3.96 0 0 0 4.69 0c2.508-1.85 5.005-3.9 6.597-6.48"/><path stroke="#E0324A" stroke-linecap="round" stroke-linejoin="round" d="M42 21c0 12.919-13.35 22.128-17.056 24.436a1.77 1.77 0 0 1-1.888 0C19.351 43.128 6 33.919 6 21c0-9.941 8.059-18 18-18s18 8.059 18 18"/><path stroke="#E0324A" stroke-linecap="round" stroke-linejoin="round" d="M32.942 23.822a7.2 7.2 0 0 0 .873-5.38c-.911-4.163-5.957-5.864-9.1-3.074c-.249.22-.47.473-.715.725c-.245-.252-.466-.506-.715-.725c-3.143-2.79-8.189-1.089-9.1 3.074a7.2 7.2 0 0 0 .873 5.38c1.592 2.58 4.09 4.63 6.597 6.48a3.96 3.96 0 0 0 4.69 0c2.508-1.85 5.005-3.9 6.597-6.48"/></g></symbol>
     <symbol id="p-diamond" viewBox="0 0 48 48"><g fill="none" stroke-width="3"><path fill="#FFD3D6" d="m44.88 18.016l-5.352-9.49A3 3 0 0 0 36.915 7h-25.83a3 3 0 0 0-2.612 1.526l-5.353 9.49a3 3 0 0 0 .491 3.595l18.975 18.975a2 2 0 0 0 2.828 0L44.39 21.61a3 3 0 0 0 .492-3.595Z"/><path stroke="#E0324A" stroke-linecap="round" stroke-linejoin="round" d="m44.88 18.016l-5.352-9.49A3 3 0 0 0 36.915 7h-25.83a3 3 0 0 0-2.612 1.526l-5.353 9.49a3 3 0 0 0 .491 3.595l18.975 18.975a2 2 0 0 0 2.828 0L44.39 21.61a3 3 0 0 0 .492-3.595Z"/><path stroke="#E0324A" stroke-linecap="round" stroke-linejoin="round" d="m18.773 7l-2.956 11.74a4 4 0 0 0 .167 2.466l8.008 19.966h.017"/><path stroke="#E0324A" stroke-linecap="round" stroke-linejoin="round" d="m29.227 7l2.955 11.74a4 4 0 0 1-.166 2.466l-8.008 19.966M3 20h42"/></g></symbol>
     <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></symbol>
     <symbol id="i-insta" viewBox="0 0 24 24"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></symbol>
     <symbol id="i-tiktok" viewBox="0 0 24 24"><path d="M16 3a5 5 0 0 0 5 5"/><path d="M16 3v11a5 5 0 1 1-5-5"/></symbol>
     <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></symbol>
@@ -589,15 +631,20 @@ html { scroll-padding-top: 76px; }
     <button class="burger" aria-label="פתיחת תפריט" aria-expanded="false" aria-controls="nav"><span></span><span></span><span></span></button>
     <a class="logo" href="#top" aria-label="מיכל לכטר, איפור ושיער. לראש העמוד"><span class="script">Michal Lechter</span><span class="sub">MAKEUP &amp; HAIR</span></a>
     <nav class="nav" id="nav" aria-label="ניווט ראשי">
-      <a href="#reels">רגע לפני החופה</a>
-      <a href="#services">שירותים</a>
-      <a href="#kit">הקיט</a>
-      <a href="#quiz">איזו כלה את?</a>
-      <a href="#about">קצת עליי</a>
+      <span class="sheet-kicker">תפריט</span>
+      <a href="#reels"><small>01</small>רגע לפני החופה</a>
+      <a href="#services"><small>02</small>שירותים</a>
+      <a href="#kit"><small>03</small>הקיט</a>
+      <a href="#quiz"><small>04</small>איזו כלה את?</a>
+      <a href="#about"><small>05</small>קצת עליי</a>
+      <a class="sheet-only" href="#book"><small>06</small>בדיקת תאריך</a>
       <div class="sheet-foot">
-        <span class="pearl sheet-pearl" aria-hidden="true"></span>
-        <a class="btn btn-coral wa-cta" data-msg="היי מיכל! אשמח לבדוק תאריך פנוי 💍" href="#book">לבדיקת תאריך פנוי ←</a>
-        <div class="soc"><a href="#" aria-label="אינסטגרם"><svg class="ico"><use href="#i-insta"/></svg></a><a href="#" aria-label="טיקטוק"><svg class="ico"><use href="#i-tiktok"/></svg></a></div>
+        <a class="btn btn-coral wa-cta" data-msg="היי מיכל! אשמח לבדוק תאריך פנוי 💍" href="#book">לבדיקת תאריך בוואטסאפ ←</a>
+        <div class="sheet-contact">
+          <a class="sheet-tel" href="tel:+972500000000"><svg class="ico" aria-hidden="true"><use href="#i-phone"/></svg>050-000-0000</a>
+          <div class="soc"><a href="#" aria-label="אינסטגרם"><svg class="ico"><use href="#i-insta"/></svg></a><a href="#" aria-label="טיקטוק"><svg class="ico"><use href="#i-tiktok"/></svg></a></div>
+        </div>
+        <div class="sheet-legal"><a href="#">תקנון</a><a href="#">הצהרת נגישות</a><a href="#">פרטיות</a></div>
       </div>
     </nav>
     <a class="btn btn-coral wa-cta" data-msg="היי מיכל! אשמח לבדוק תאריך פנוי 💄" href="#book">לבדיקת תאריך <span class="arrow"><svg class="ico" aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
@@ -745,8 +792,8 @@ html { scroll-padding-top: 76px; }
       </div>
     </div>
     <div class="rows" aria-label="ביקורות ותמונות של כלות ונשים">
-      <div class="row"><div class="bubble"><div class="who">שני · כלה, יוני 2026</div>מיכל!!! לא ירדה לי טיפה במשך כל הערב. כולם שאלו מי איפרה אותי 😍<div class="meta">23:41 <svg class="ico"><use href="#i-checks"/></svg></div></div><figure class="bubble img"><img src="img/bride-lace.jpg" alt="כלה עם תסרוקת אסופה" loading="lazy"><figcaption>שני · כלה</figcaption></figure><div class="bubble"><div class="who">הדר · כלה, מאי 2026</div>הרגשתי הכי אני, רק בגרסה הכי יפה. תודה שהיית כל כך רגועה בבוקר 🤍<div class="meta">01:12 <svg class="ico"><use href="#i-checks"/></svg></div></div><figure class="bubble img"><img src="img/bride-flower.jpg" alt="כלה עם אביזר פרחים" loading="lazy"><figcaption>הדר · כלה</figcaption></figure><div class="bubble"><div class="who">רוני · אמא של הכלה</div>אפילו אני בכיתי בחופה והאיפור נשאר מושלם. את קוסמת!<div class="meta">22:05 <svg class="ico"><use href="#i-checks"/></svg></div></div><figure class="bubble img"><img src="img/bride-hair.jpg" alt="תסרוקת כלה" loading="lazy"><figcaption>נוי · כלה</figcaption></figure><div class="bubble"><div class="who">שני · כלה, יוני 2026</div>מיכל!!! לא ירדה לי טיפה במשך כל הערב. כולם שאלו מי איפרה אותי 😍<div class="meta">23:41 <svg class="ico"><use href="#i-checks"/></svg></div></div><figure class="bubble img"><img src="img/bride-lace.jpg" alt="כלה עם תסרוקת אסופה" loading="lazy"><figcaption>שני · כלה</figcaption></figure><div class="bubble"><div class="who">הדר · כלה, מאי 2026</div>הרגשתי הכי אני, רק בגרסה הכי יפה. תודה שהיית כל כך רגועה בבוקר 🤍<div class="meta">01:12 <svg class="ico"><use href="#i-checks"/></svg></div></div><figure class="bubble img"><img src="img/bride-flower.jpg" alt="כלה עם אביזר פרחים" loading="lazy"><figcaption>הדר · כלה</figcaption></figure><div class="bubble"><div class="who">רוני · אמא של הכלה</div>אפילו אני בכיתי בחופה והאיפור נשאר מושלם. את קוסמת!<div class="meta">22:05 <svg class="ico"><use href="#i-checks"/></svg></div></div><figure class="bubble img"><img src="img/bride-hair.jpg" alt="תסרוקת כלה" loading="lazy"><figcaption>נוי · כלה</figcaption></figure></div>
-      <div class="row rev"><div class="bubble"><div class="who">מאיה · בת מצווה</div>הבת שלי לא הפסיקה להסתכל במראה. טבעי ומתוק בדיוק כמו שביקשנו.<div class="meta">20:17 <svg class="ico"><use href="#i-checks"/></svg></div></div><figure class="bubble img"><img src="img/bride-pearls.jpg" alt="כלה עם פנינים בשיער" loading="lazy"><figcaption>טל · כלה</figcaption></figure><div class="bubble"><div class="who">ליאל · קורס איפור</div>סיימתי את הקורס ואני כבר מאפרת חברות בכל אירוע. השיטה שלך פשוט עובדת.<div class="meta">18:30 <svg class="ico"><use href="#i-checks"/></svg></div></div><figure class="bubble img"><img src="img/bride-back.jpg" alt="תסרוקת ערב עם אביזרים" loading="lazy"><figcaption>אורית · איפור ערב</figcaption></figure><div class="bubble"><div class="who">טל · כלה, אוגוסט 2026</div>התסרוקת החזיקה בשרב של אוגוסט. לא מבינה איך 🙌<div class="meta">00:48 <svg class="ico"><use href="#i-checks"/></svg></div></div><figure class="bubble img"><img src="img/artist.jpg" alt="איפור ערב בסטודיו" loading="lazy"><figcaption>דנה · איפור ערב</figcaption></figure><div class="bubble"><div class="who">מאיה · בת מצווה</div>הבת שלי לא הפסיקה להסתכל במראה. טבעי ומתוק בדיוק כמו שביקשנו.<div class="meta">20:17 <svg class="ico"><use href="#i-checks"/></svg></div></div><figure class="bubble img"><img src="img/bride-pearls.jpg" alt="כלה עם פנינים בשיער" loading="lazy"><figcaption>טל · כלה</figcaption></figure><div class="bubble"><div class="who">ליאל · קורס איפור</div>סיימתי את הקורס ואני כבר מאפרת חברות בכל אירוע. השיטה שלך פשוט עובדת.<div class="meta">18:30 <svg class="ico"><use href="#i-checks"/></svg></div></div><figure class="bubble img"><img src="img/bride-back.jpg" alt="תסרוקת ערב עם אביזרים" loading="lazy"><figcaption>אורית · איפור ערב</figcaption></figure><div class="bubble"><div class="who">טל · כלה, אוגוסט 2026</div>התסרוקת החזיקה בשרב של אוגוסט. לא מבינה איך 🙌<div class="meta">00:48 <svg class="ico"><use href="#i-checks"/></svg></div></div><figure class="bubble img"><img src="img/artist.jpg" alt="איפור ערב בסטודיו" loading="lazy"><figcaption>דנה · איפור ערב</figcaption></figure></div>
+      <div class="row"><div class="bubble"><div class="who">שני · כלה, יוני 2026</div>מיכל!!! לא ירדה לי טיפה במשך כל הערב. כולם שאלו מי איפרה אותי 😍<div class="meta">23:41 <svg class="ico"><use href="#i-checks"/></svg></div></div><figure class="bubble img"><img src="img/bride-lace.jpg" alt="כלה עם תסרוקת אסופה" loading="lazy"><figcaption>שני · כלה</figcaption></figure><div class="bubble"><div class="who">הדר · כלה, מאי 2026</div>הרגשתי הכי אני, רק בגרסה הכי יפה. תודה שהיית כל כך רגועה בבוקר 🤍<div class="meta">01:12 <svg class="ico"><use href="#i-checks"/></svg></div></div><figure class="bubble img"><img src="img/evening-1.jpg" alt="איפור ערב עם עיניים מעושנות" loading="lazy"><figcaption>הדר · איפור ערב</figcaption></figure><div class="bubble"><div class="who">רוני · אמא של הכלה</div>אפילו אני בכיתי בחופה והאיפור נשאר מושלם. את קוסמת!<div class="meta">22:05 <svg class="ico"><use href="#i-checks"/></svg></div></div><figure class="bubble img"><img src="img/bride-flower.jpg" alt="כלה עם אביזר פרחים" loading="lazy"><figcaption>נוי · כלה</figcaption></figure><div class="bubble"><div class="who">שני · כלה, יוני 2026</div>מיכל!!! לא ירדה לי טיפה במשך כל הערב. כולם שאלו מי איפרה אותי 😍<div class="meta">23:41 <svg class="ico"><use href="#i-checks"/></svg></div></div><figure class="bubble img"><img src="img/bride-lace.jpg" alt="כלה עם תסרוקת אסופה" loading="lazy"><figcaption>שני · כלה</figcaption></figure><div class="bubble"><div class="who">הדר · כלה, מאי 2026</div>הרגשתי הכי אני, רק בגרסה הכי יפה. תודה שהיית כל כך רגועה בבוקר 🤍<div class="meta">01:12 <svg class="ico"><use href="#i-checks"/></svg></div></div><figure class="bubble img"><img src="img/evening-1.jpg" alt="איפור ערב עם עיניים מעושנות" loading="lazy"><figcaption>הדר · איפור ערב</figcaption></figure><div class="bubble"><div class="who">רוני · אמא של הכלה</div>אפילו אני בכיתי בחופה והאיפור נשאר מושלם. את קוסמת!<div class="meta">22:05 <svg class="ico"><use href="#i-checks"/></svg></div></div><figure class="bubble img"><img src="img/bride-flower.jpg" alt="כלה עם אביזר פרחים" loading="lazy"><figcaption>נוי · כלה</figcaption></figure></div>
+      <div class="row rev"><div class="bubble"><div class="who">מאיה · בת מצווה</div>הבת שלי לא הפסיקה להסתכל במראה. טבעי ומתוק בדיוק כמו שביקשנו.<div class="meta">20:17 <svg class="ico"><use href="#i-checks"/></svg></div></div><figure class="bubble img"><img src="img/bride-pearls.jpg" alt="כלה עם פנינים בשיער" loading="lazy"><figcaption>טל · כלה</figcaption></figure><div class="bubble"><div class="who">ליאל · קורס איפור</div>סיימתי את הקורס ואני כבר מאפרת חברות בכל אירוע. השיטה שלך פשוט עובדת.<div class="meta">18:30 <svg class="ico"><use href="#i-checks"/></svg></div></div><figure class="bubble img"><img src="img/evening-2.jpg" alt="איפור ערב עדין עם שפתיים ורודות" loading="lazy"><figcaption>אורית · אמא של הכלה</figcaption></figure><div class="bubble"><div class="who">טל · כלה, אוגוסט 2026</div>התסרוקת החזיקה בשרב של אוגוסט. לא מבינה איך 🙌<div class="meta">00:48 <svg class="ico"><use href="#i-checks"/></svg></div></div><figure class="bubble img"><img src="img/evening-3.jpg" alt="איפור ערב עם עגילים" loading="lazy"><figcaption>דנה · איפור ערב</figcaption></figure><figure class="bubble img"><img src="img/evening-4.jpg" alt="איפור ערב עם תכשיטים" loading="lazy"><figcaption>מור · אירוע ערב</figcaption></figure><div class="bubble"><div class="who">מאיה · בת מצווה</div>הבת שלי לא הפסיקה להסתכל במראה. טבעי ומתוק בדיוק כמו שביקשנו.<div class="meta">20:17 <svg class="ico"><use href="#i-checks"/></svg></div></div><figure class="bubble img"><img src="img/bride-pearls.jpg" alt="כלה עם פנינים בשיער" loading="lazy"><figcaption>טל · כלה</figcaption></figure><div class="bubble"><div class="who">ליאל · קורס איפור</div>סיימתי את הקורס ואני כבר מאפרת חברות בכל אירוע. השיטה שלך פשוט עובדת.<div class="meta">18:30 <svg class="ico"><use href="#i-checks"/></svg></div></div><figure class="bubble img"><img src="img/evening-2.jpg" alt="איפור ערב עדין עם שפתיים ורודות" loading="lazy"><figcaption>אורית · אמא של הכלה</figcaption></figure><div class="bubble"><div class="who">טל · כלה, אוגוסט 2026</div>התסרוקת החזיקה בשרב של אוגוסט. לא מבינה איך 🙌<div class="meta">00:48 <svg class="ico"><use href="#i-checks"/></svg></div></div><figure class="bubble img"><img src="img/evening-3.jpg" alt="איפור ערב עם עגילים" loading="lazy"><figcaption>דנה · איפור ערב</figcaption></figure><figure class="bubble img"><img src="img/evening-4.jpg" alt="איפור ערב עם תכשיטים" loading="lazy"><figcaption>מור · אירוע ערב</figcaption></figure></div>
     </div>
   </section>
 
@@ -816,12 +863,20 @@ html { scroll-padding-top: 76px; }
   <video src="video/glitter.mp4" autoplay muted loop playsinline preload="none" aria-hidden="true"></video>
   <div class="wrap">
     <div class="big"><span class="script">Michal Lechter</span><span class="sub">MAKEUP &amp; HAIR</span></div>
-    <div class="fcols">
-      <div><p>איפור ושיער לכלות ולאירועים, מרכז הארץ והשרון. מגיעה עד הבית.</p><div class="socials" style="margin-top:1em"><a href="#" aria-label="אינסטגרם"><svg class="ico"><use href="#i-insta"/></svg></a><a href="#" aria-label="טיקטוק"><svg class="ico"><use href="#i-tiktok"/></svg></a></div></div>
-      <div><h4>שירותים</h4><a href="#services">איפור כלה</a><a href="#services">איפור ערב</a><a href="#services">תסרוקות</a><a href="#services">קורסים</a></div>
-      <div><h4>יצירת קשר</h4><a href="#book">050-000-0000</a><a href="#book">hello@michallechter.co.il</a><a href="#book">לבדיקת תאריך ←</a></div>
-      <div><h4>מידע</h4><a href="#">תקנון האתר</a><a href="#">הצהרת נגישות</a><a href="#">מדיניות פרטיות</a></div>
+    <div class="f-top">
+      <p class="f-about">איפור ושיער לכלות ולאירועים<br>מרכז הארץ והשרון · מגיעה עד הבית</p>
+      <a class="btn btn-coral wa-cta" data-msg="היי מיכל! אשמח לבדוק תאריך פנוי 💍" href="#book">לבדיקת תאריך בוואטסאפ ←</a>
     </div>
+    <div class="fcols">
+      <div><h4>שירותים</h4><a href="#services">איפור כלה</a><a href="#services">איפור ערב</a><a href="#services">תסרוקות</a><a href="#services">קורסים</a></div>
+      <div><h4>באתר</h4><a href="#reels">רגע לפני החופה</a><a href="#kit">הקיט</a><a href="#quiz">איזו כלה את?</a><a href="#about">קצת עליי</a></div>
+      <div class="f-contact"><h4>יצירת קשר</h4>
+        <a href="tel:+972500000000"><svg class="ico" aria-hidden="true"><use href="#i-phone"/></svg>050-000-0000</a>
+        <a href="mailto:hello@michallechter.co.il"><svg class="ico" aria-hidden="true"><use href="#i-mail"/></svg><span dir="ltr">hello@michallechter.co.il</span></a>
+        <div class="socials"><a href="#" aria-label="אינסטגרם"><svg class="ico"><use href="#i-insta"/></svg></a><a href="#" aria-label="טיקטוק"><svg class="ico"><use href="#i-tiktok"/></svg></a></div>
+      </div>
+    </div>
+    <div class="f-legal"><a href="#">תקנון האתר</a><a href="#">הצהרת נגישות</a><a href="#">מדיניות פרטיות</a></div>
   </div>
   <div class="credit">עיצוב ופיתוח: שרהלה חיכמן · כל הזכויות שמורות למיכל לכטר</div>
 </footer>
@@ -1017,6 +1072,7 @@ html { scroll-padding-top: 76px; }
   const mob = () => matchMedia('(max-width: 700px)').matches;
   function setMenu(o) {
     nav.classList.toggle('open', o); burger.setAttribute('aria-expanded', o);
+    document.documentElement.classList.toggle('menu-open', o && mob());
     burger.setAttribute('aria-label', o ? 'סגירת תפריט' : 'פתיחת תפריט');
     document.documentElement.style.overflow = o && mob() ? 'hidden' : '';
     barFrame();
